@@ -24,7 +24,7 @@ export const register = async (req, res) => {
         });
 
         const user = await doc.save();
-
+        console.log('User reg');
         const token = jwt.sign({
             _id: user._id,
             nickName: user.nickName

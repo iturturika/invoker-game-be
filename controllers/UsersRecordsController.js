@@ -59,3 +59,20 @@ export const getRecords = async (req, res) => {
         })
     }
 };
+
+export const getCurentRecord = async (req, res) => {
+    try {
+        const records = await UsersRecordsModel.findOne({id: req.body.id});
+        if(!records) {
+            return res.status(404).json({
+                message: `Your record not found`
+            });
+        }
+        res.json({records});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: `Can't get your record`
+        })
+    }
+}

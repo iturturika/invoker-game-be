@@ -11,7 +11,7 @@ import * as UsersRecordsController from './controllers/UsersRecordsController.js
 
 //Connect DB
 mongoose.connect(
-    process.env.MONGODB_URI
+    "mongodb+srv://iturturika89:ozzy@cluster0.npblntb.mongodb.net/invoker-game?retryWrites=true&w=majority"
 ).then(() => {console.log('ok DB')})
 .catch((err) => {console.log('DB error: ' + err)});
 
@@ -34,6 +34,8 @@ app.post('/users-records', checkAuth, UsersRecordsController.setRecord);
 app.patch('/users-records', checkAuth, UsersRecordsController.updateRecord);
 
 app.get('/users-records', checkAuth, UsersRecordsController.getRecords);
+
+app.get('/users-records/curent', checkAuth, UsersRecordsController.getCurentRecord);
 
 app.listen(4444, (err) => {
     if(err){
