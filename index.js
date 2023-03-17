@@ -11,7 +11,7 @@ import * as UsersRecordsController from './controllers/UsersRecordsController.js
 
 //Connect DB
 mongoose.connect(
-    "mongodb+srv://iturturika89:ozzy@cluster0.npblntb.mongodb.net/invoker-game?retryWrites=true&w=majority"
+    process.env.MONGODB_URI
 ).then(() => {console.log('ok DB')})
 .catch((err) => {console.log('DB error: ' + err)});
 
