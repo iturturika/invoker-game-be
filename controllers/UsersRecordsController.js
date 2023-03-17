@@ -27,14 +27,20 @@ export const updateRecord = async (req, res) => {
     try {
         const doc = await UsersRecordsModel.findOneAndUpdate({id: req.body.id}, {record: req.body.record} );
         const record = await doc.save();
-        if(!record) {
-            return res.status(404).json({
-                message: `Can't update record`
+        if(req.body.record < doc.record) {
+            if(!record) {
+                return res.status(404).json({
+                    message: `Can't update record`
+                });
+            }
+            res.json({
+                message: `Record was successfully updated`
+            });
+        } else {
+            res.json({
+                message: `Record is less than previous record`
             });
         }
-        res.json({
-            message: `Record was successfully updated`
-        });
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -60,19 +66,3 @@ export const getRecords = async (req, res) => {
     }
 };
 
-export const getCurentRecord = async (req, res) => {
-    try {
-        const records = await UsersRecordsModel.findOne({id: req.body.id});
-        if(!records) {
-            return res.status(404).json({
-                message: `Your record not found`
-            });
-        }
-        res.json({records});
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            message: `Can't get your record`
-        })
-    }
-}

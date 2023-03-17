@@ -35,7 +35,7 @@ app.patch('/users-records', checkAuth, UsersRecordsController.updateRecord);
 
 app.get('/users-records', checkAuth, UsersRecordsController.getRecords);
 
-app.get('/users-records/curent', checkAuth, UsersRecordsController.getCurentRecord);
+
 
 app.listen(4444, (err) => {
     if(err){
