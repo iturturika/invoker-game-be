@@ -25,9 +25,9 @@ export const setRecord = async (req, res) => {
 
 export const updateRecord = async (req, res) => {
     try {
-        const doc = await UsersRecordsModel.findOneAndUpdate({id: req.body.id}, {record: req.body.record} );
-        const record = await doc.save();
-        if(req.body.record < doc.record) {
+        const doc = await UsersRecordsModel.findOne({id: req.body.id});
+        if(req.body.record < doc.record){
+            const record = await UsersRecordsModel.findOneAndUpdate({id: req.body.id}, {record: req.body.record});
             if(!record) {
                 return res.status(404).json({
                     message: `Can't update record`
@@ -37,8 +37,8 @@ export const updateRecord = async (req, res) => {
                 message: `Record was successfully updated`
             });
         } else {
-            res.json({
-                message: `Record is less than previous record`
+            return res.status(404).json({
+                message: `Record is bigger than current record`
             });
         }
     } catch (err) {
@@ -65,4 +65,3 @@ export const getRecords = async (req, res) => {
         })
     }
 };
-
